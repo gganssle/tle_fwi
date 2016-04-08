@@ -6,10 +6,11 @@
 nx = 3
 ny = 2
 nz = 10
+d1 = 10 # depth increment
 
 vel = zeros(Float32,nz,nx,ny)
 
-#build model
+# build model
 for i = 1:nz, j = 1:nx, k = 1:ny
 	if i < nz / 2
 		vel[i,j,k] = 1
@@ -23,7 +24,7 @@ print(size(vel), "\n")
 print(vel,"\n")
 =#
 
-#write out text file for QC
+# write out text file for QC
 out = open("vel_1.txt","w")
 for k = 1:ny
 	for i = 1:nz
@@ -37,14 +38,17 @@ for k = 1:ny
 end
 close(out)
 
-#write out model (data) in binary for Seismic.jl
-out = open("vel_1.bin","w")
-for k = 1:ny, i = 1:nz, j = 1:nx
-			write(out, vel[i,j,k])
+test = []
+print(test, "\n")
+push!(test,1)
+print(test, "\n")
+
+# write out model for Seismic.jl
+h = zeros(nx*ny)
+using Seismic
+for i = 1:nx*ny
+	h[i].n1 = nz
+	h[i].d1 = d1
 end
-close(out)
-
-#write out model (headers) in binary for Seismic.jl
-
-#write out model (text info) in binary for Seismic.jl
+SeisWrite("vel_1", vel, h)
 
