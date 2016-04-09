@@ -15,4 +15,4 @@ To run this stuff you'll need Julia v0.4, and two Julia packages: Seismic and Py
 	<li>enjoy</li>
 </ul>
 
-Please contact GRAM with any questions at <a href=https://gra.m-gan.sl>gra.m-gan.sl</a>.
+Please contact GRAM with any questions at <a href="https://gra.m-gan.sl">gra.m-gan.sl</a>, or on Twitter <a href="https://twitter.com/grahamganssle">@GrahamGanssle</a>.
