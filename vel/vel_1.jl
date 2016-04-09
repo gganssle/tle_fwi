@@ -2,11 +2,15 @@
 #
 # by GRAM | 8 Apr 2016
 
+using Seismic
+
 # def size
 nx = 3
 ny = 2
 nz = 10
-d1 = 10 # depth increment
+dz = 10 # depth increment
+dx = 20
+dy = 20
 
 vel = zeros(Float32,nz,nx,ny)
 
@@ -38,17 +42,32 @@ for k = 1:ny
 end
 close(out)
 
-test = []
-print(test, "\n")
-push!(test,1)
-print(test, "\n")
+# write out vel model for Seismic.jl
+h = Array(Header,nx*ny)
+ex = Seismic.Extent(convert(Int32,nz), convert(Int32,nx), convert(Int32,ny), 
+	1, 1, 0, 0, 0, 0, 0, convert(Float32,dz), convert(Float32,dx), 
+	convert(Float32,dy), 1, 1, "Depth", "mx", "my", "", "", "", "", "", 
+	"", "", "")
 
-# write out model for Seismic.jl
-h = zeros(nx*ny)
-using Seismic
-for i = 1:nx*ny
-	h[i].n1 = nz
-	h[i].d1 = d1
+for i = 1 : ny
+	for j = 1 : nx
+		h[j + nx * (i - 1)] = Seismic.InitSeisHeader()
+		h[j + nx * (i - 1)].tracenum = convert(Int32, j + nx * (i - 1))
+		h[j + nx * (i - 1)].o1 = convert(Float32, 0)		
+		h[j + nx * (i - 1)].n1 = convert(Int32, nz)
+		h[j + nx * (i - 1)].d1 = convert(Float32, dz)
+		h[j + nx * (i - 1)].mx = convert(Float32, j)
+		h[j + nx * (i - 1)].my = convert(Float32, i)
+	end
 end
-SeisWrite("vel_1", vel, h)
+
+SeisWrite("vel_1",vel,h,ex)
+
+
+
+
+
+
+
+
 
