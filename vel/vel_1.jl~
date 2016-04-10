@@ -65,6 +65,10 @@ end
 
 SeisWrite("vel_1",vel,h,ex)
 
+# convolve RC with Ricker wavelet to generate 0 offset section
+
+
+
 
 
 
