@@ -15,7 +15,7 @@ ny = size(vel)[3]
 
 # initialize
 peakF = 80    # Ricker peak freq
-samp  = .0001 # Ricker sample rate
+samp  = .001 # Ricker sample rate
 dz = 10
 dx = 20
 dy = 20
@@ -25,6 +25,8 @@ rick = zeros(Float32, size(temp)[1])
 for i = 1 : size(temp)[1]
 	rick[i] = convert(Float32, temp[i])
 end
+
+print("\nThis Ricker wavelet is ",size(rick)[1]," samples long.\n")
 
 r = zeros(Float32,nz,nx,ny)
 
@@ -62,14 +64,36 @@ end
 SeisWrite("refl",r,vel_h,ex)
 
 # convolve RC with Ricker wavelet to generate 0 offset section
-m = zeros(Float32, nz + size(rick)[1] - 1, nx, ny)
+nz_new = size(ricker)[1] + nz - 1
+m = zeros(Float32, nz_new, nx, ny)
 for j = 1 : ny
 	for i = 1 : nx
 		m[:,i,j] = conv(r[:,i,j], rick)
 	end
 end
 
+# window out middle samples of convolution for physical reality
+if isodd(size(m)[1]) == true
+	for j = 1 : ny
+		for i = 1 : nx
+			vel[:,i,j] = m[(size(m)[1] - nz) / 2 : (size(m)[1] - nz) / 2, i, j]
+		end
+	end
+else
+	for j = 1 : ny
+		for i = 1 : nx
+			vel[:,i,j] = m[, i, j]
+		end
+	end
+end
+
 # write out the wavefield
+h = Array(Header,nx*ny)
+ex = Seismic.Extent(convert(Int32,nz), convert(Int32,nx), convert(Int32,ny), 
+	1, 1, 0, 0, 0, 0, 0, convert(Float32,dz), convert(Float32,dx), 
+	convert(Float32,dy), 1, 1, "Depth", "mx", "my", "", "", "", "", "", 
+	"", "", "")
+
 SeisWrite("image",m,vel_h,ex)
 
 
