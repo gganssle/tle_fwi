@@ -26,5 +26,5 @@
 	title=""
 	data_format="native_float"
 	esize=4
-	in="C:\Users\gram\Documents\GitHub\tle_fwi\vel/vel_1@data@"
-	headers="C:\Users\gram\Documents\GitHub\tle_fwi\vel/vel_1@headers@"
+	in="/var/tmp/vel_1@data@"
+	headers="/var/tmp/vel_1@headers@"

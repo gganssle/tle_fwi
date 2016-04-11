@@ -14,7 +14,7 @@ nx = size(vel)[2]
 ny = size(vel)[3]
 
 # initialize
-peakF = 80    # Ricker peak freq
+peakF = 34    # Ricker peak freq
 samp  = .001 # Ricker sample rate
 dz = 10
 dx = 20
@@ -26,7 +26,7 @@ for i = 1 : size(temp)[1]
 	rick[i] = convert(Float32, temp[i])
 end
 
-print("\nThis Ricker wavelet is ",size(rick)[1]," samples long.\n")
+print("\nThis Ricker wavelet is ",size(rick)[1]," samples long.\n\n")
 
 r = zeros(Float32,nz,nx,ny)
 
@@ -64,7 +64,7 @@ end
 SeisWrite("refl",r,vel_h,ex)
 
 # convolve RC with Ricker wavelet to generate 0 offset section
-nz_new = size(ricker)[1] + nz - 1
+nz_new = size(rick)[1] + nz - 1
 m = zeros(Float32, nz_new, nx, ny)
 for j = 1 : ny
 	for i = 1 : nx
@@ -77,13 +77,13 @@ extra = size(m)[1] - nz
 if isodd(extra) == true
 	for j = 1 : ny
 		for i = 1 : nx
-			vel[:,i,j] = m[ceil(extra / 2) : nz + ceil(extra / 2), i, j]
+			vel[:,i,j] = m[ceil(extra / 2) : nz - 1 + ceil(extra / 2), i, j]
 		end
 	end
 else
 	for j = 1 : ny
 		for i = 1 : nx
-			vel[:,i,j] = m[extra / 2 : nz + extra / 2, i, j]
+			vel[:,i,j] = m[extra / 2 : nz - 1 + extra / 2, i, j]
 		end
 	end
 end
@@ -95,7 +95,7 @@ ex = Seismic.Extent(convert(Int32,nz), convert(Int32,nx), convert(Int32,ny),
 	convert(Float32,dy), 1, 1, "Depth", "mx", "my", "", "", "", "", "", 
 	"", "", "")
 
-SeisWrite("image",m,vel_h,ex)
+SeisWrite("image",vel,vel_h,ex)
 
 
 
