@@ -73,16 +73,17 @@ for j = 1 : ny
 end
 
 # window out middle samples of convolution for physical reality
-if isodd(size(m)[1]) == true
+extra = size(m)[1] - nz
+if isodd(extra) == true
 	for j = 1 : ny
 		for i = 1 : nx
-			vel[:,i,j] = m[(size(m)[1] - nz) / 2 : (size(m)[1] - nz) / 2, i, j]
+			vel[:,i,j] = m[ceil(extra / 2) : nz + ceil(extra / 2), i, j]
 		end
 	end
 else
 	for j = 1 : ny
 		for i = 1 : nx
-			vel[:,i,j] = m[, i, j]
+			vel[:,i,j] = m[extra / 2 : nz + extra / 2, i, j]
 		end
 	end
 end
