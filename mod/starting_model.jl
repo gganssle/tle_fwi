@@ -28,9 +28,20 @@ end
 
 print("\nThis Ricker wavelet is ",size(rick)[1]," samples long.\n\n")
 
-r = zeros(Float32,nz,nx,ny)
+#write out wavelet for use with finite difference modeling
+ex = Seismic.Extent(convert(Int32,size(rick)[1]), convert(Int32,1), 0, 
+	1, 1, 0, 0, 0, 0, 0, convert(Float32,dz), convert(Float32,1), 
+	0, 1, 1, "Depth", "mx", "0", "", "", "", "", "", 
+	"", "", "")
+h_w = Array(Header,1);
+h_w[1] = Seismic.InitSeisHeader();
+h_w[1].tracenum = 1;
+h_w[1].n1 = size(rick)[1];
+h_w[1].d1 = samp;
+SeisWrite("wav", rick[:], h_w, ex);
 
 # calculate (normal incidence) reflection coeficients
+r = zeros(Float32,nz,nx,ny)
 d1 = d2 = 1 # acoustic assumption
 
 for k = 1 : ny
