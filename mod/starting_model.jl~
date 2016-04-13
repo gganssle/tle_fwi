@@ -29,9 +29,9 @@ end
 print("\nThis Ricker wavelet is ",size(rick)[1]," samples long.\n\n")
 
 #write out wavelet for use with finite difference modeling
-ex = Seismic.Extent(convert(Int32,size(rick)[1]), convert(Int32,1), convert(Int32,1), 
+ex = Seismic.Extent(convert(Int32,size(rick)[1]), convert(Int32,1), 0, 
 	1, 1, 0, 0, 0, 0, 0, convert(Float32,dz), convert(Float32,1), 
-	convert(Float32,1), 1, 1, "Depth", "mx", "0", "", "", "", "", "", 
+	0, 1, 1, "Depth", "mx", "0", "", "", "", "", "", 
 	"", "", "")
 h_w = Array(Header,1);
 h_w[1] = Seismic.InitSeisHeader();
