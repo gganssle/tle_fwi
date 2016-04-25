@@ -1,4 +1,4 @@
-	n1=65
+	n1=23
 	n2=1
 	n3=1
 	n4=1
@@ -26,5 +26,5 @@
 	title=""
 	data_format="native_float"
 	esize=4
-	in="/var/tmp/wav@data@"
-	headers="/var/tmp/wav@headers@"
+	in="/home/gram/tle_fwi/mod/wav@data@"
+	headers="/home/gram/tle_fwi/mod/wav@headers@"

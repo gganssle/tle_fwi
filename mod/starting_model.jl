@@ -14,7 +14,7 @@ nx = size(vel)[2]
 ny = size(vel)[3]
 
 # initialize
-peakF = 34    # Ricker peak freq
+peakF = 100    # Ricker peak freq
 samp  = .001 # Ricker sample rate
 dz = 10
 dx = 20
