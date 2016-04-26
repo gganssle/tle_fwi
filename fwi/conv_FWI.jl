@@ -24,14 +24,6 @@ dx = vel_h[1].d2
 dy = vel_h[1].d3
 inc = .10		# velocity update percentage
 d1 = d2 = 1		# acoustic assumption
-v_p = zeros(Float32,nz,nx,ny)
-v_n = zeros(Float32,nz,nx,ny)
-r_p = zeros(Float32,nz,nx,ny)
-r_n = zeros(Float32,nz,nx,ny)
-r_o = zeros(Float32,nz,nx,ny)
-s_p = zeros(Float32,nz,nx,ny)
-s_n = zeros(Float32,nz,nx,ny)
-s_o = zeros(Float32,nz,nx,ny)
 
 #### main FWI loop ########################
 for i = 1 : ny, j = 1 : nx, k = 1 : nz
@@ -39,23 +31,25 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 	print("\n Now updating trace x = ", j, ", y = ", i, " \n")
 
 	# build perturbed velocity models
-	v_p = vel[:,:,:]
-	v_p[k,i,j] += v_p[k,i,j] * (1 + inc)
+	v_p = vel[:,j,i]
+	v_p[k] += v_p[k] * (1 + inc)
 	
-	v_n = vel[:,:,:]
-	v_n[k,i,j] += v_n[k,i,j] * (1 - inc)
+	v_n = vel[:,j,i]
+	v_n[k] += v_n[k] * (1 - inc)
+	
+	v_o = vel[:,j,i]
 
 	# calculate reflection coeficients
-	for kk = 1 : ny, jj = 1 : nx, ii = 1 : nz - 1
+	for kk = 1 : nz
 
-		r_p[ii,jj,kk] = ((d2 * v_p[ii+1,jj,kk] - d1 * v_p[ii,jj,kk]) /
-				   (d2 * v_p[ii+1,jj,kk] + d1 * v_p[ii,jj,kk])) ^ 2
+		r_p[kk] = ((d2 * v_p[kk + 1] - d1 * v_p[kk]) /
+				   (d2 * v_p[kk + 1] + d1 * v_p[kk])) ^ 2
 		
-		r_n[ii,jj,kk] = ((d2 * v_n[ii+1,jj,kk] - d1 * v_n[ii,jj,kk]) /
-				   (d2 * v_n[ii+1,jj,kk] + d1 * v_n[ii,jj,kk])) ^ 2
+		r_n[kk] = ((d2 * v_n[kk + 1] - d1 * v_n[kk]) /
+				   (d2 * v_n[kk + 1] + d1 * v_n[kk])) ^ 2
 
-		r_o[ii,jj,kk] = ((d2 * vel[ii+1,jj,kk] - d1 * vel[ii,jj,kk]) /
-				   (d2 * vel[ii+1,jj,kk] + d1 * vel[ii,jj,kk])) ^ 2
+		r_o[kk] = ((d2 * v_o[kk + 1] - d1 * v_o[kk]) /
+				   (d2 * v_o[kk + 1] + d1 * v_o[kk])) ^ 2
 
 	end
 
@@ -68,44 +62,45 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 	m_o = zeros(Float32, nz_new, nx, ny)
 
 		# model seismic with a convolution
-	for jj = 1 : ny, ii = 1 : nx
-		m_p[:,ii,jj] = conv(r_p[:,ii,jj], rick)
-		m_n[:,ii,jj] = conv(r_n[:,ii,jj], rick)
-		m_o[:,ii,jj] = conv(r_o[:,ii,jj], rick)
-	end
+	m_p = conv(r_p, rick)
+	m_n = conv(r_n, rick)
+	m_o = conv(r_o, rick)
 
 	# clip off unused (non-physical) ends of convolution
 	extra = size(m_p)[1] - nz
 
 	if isodd(extra) == true
-		for jj = 1 : ny, ii = 1 : nx
-			s_p[:,ii,jj] = m_p[ceil(extra / 2) : nz - 1 + ceil(extra / 2), ii, jj]
-			s_n[:,ii,jj] = m_n[ceil(extra / 2) : nz - 1 + ceil(extra / 2), ii, jj]
-			s_o[:,ii,jj] = m_o[ceil(extra / 2) : nz - 1 + ceil(extra / 2), ii, jj]
-		end
+		s_p = m_p[ceil(extra / 2) : nz - 1 + ceil(extra / 2)]
+		s_n = m_n[ceil(extra / 2) : nz - 1 + ceil(extra / 2)]
+		s_o = m_o[ceil(extra / 2) : nz - 1 + ceil(extra / 2)]
 	else
-		for jj = 1 : ny, ii = 1 : nx
-			s_p[:,ii,jj] = m_p[extra / 2 : nz - 1 + extra / 2, ii, jj]
-			s_n[:,ii,jj] = m_n[extra / 2 : nz - 1 + extra / 2, ii, jj]
-			s_o[:,ii,jj] = m_o[extra / 2 : nz - 1 + extra / 2, ii, jj]
-		end
+		s_p = m_p[extra / 2 : nz - 1 + extra / 2]
+		s_n = m_n[extra / 2 : nz - 1 + extra / 2]
+		s_o = m_o[extra / 2 : nz - 1 + extra / 2]
 	end
 
 	# compare images
 		# correlate signals
-		
-		# difference and weight
+	cor_p = ifft(conj(fft(s_p))*fft(sei[:,j,i]))
+	cor_n = ifft(conj(fft(s_n))*fft(sei[:,j,i]))
+	cor_o = ifft(conj(fft(s_o))*fft(sei[:,j,i]))
+	acor = ifft(conj(fft(sei[:,j,i]))*fft(sei[:,j,i]))
 
-		# sum the differences
-	comp = [,,]
+		# difference and weight
+	dif_p = acor - cor_p
+	dif_n = acor - cor_n
+	dif_o = acor - cor_o
+	
+		# sum the difference vectors
+	comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 	
 	# move in the direction of improvement
-	dir = find(comp .== max(comp[1],comp[2],comp[3]))
+	dir = find(comp .== min(comp[1],comp[2],comp[3]))
 	
-	if dir == 1 
-		vel[k,j,i] = v_p[k,j,i]
+	if dir == 1
+		vel[k,j,i] = v_p[k]
 	elseif dir == 2
-		vel[k,j,i] = v_n[k,j,i]
+		vel[k,j,i] = v_n[k]
 	end
 	
 end
