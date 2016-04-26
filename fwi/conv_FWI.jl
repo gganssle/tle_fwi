@@ -92,8 +92,13 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 	end
 
 	# compare images
-	
+		# correlate signals
+		
+		# difference and weight
 
+		# sum the differences
+	comp = [,,]
+	
 	# move in the direction of improvement
 	dir = find(comp .== max(comp[1],comp[2],comp[3]))
 	
