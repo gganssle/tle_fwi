@@ -98,9 +98,6 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 		dif_o = acor - cor_o
 		
 			# sum the difference vectors
-		
-		print(dif_p)
-
 		comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 		
 		# move in the direction of improvement

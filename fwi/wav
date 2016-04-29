@@ -1,6 +1,6 @@
-	n1=100
-	n2=11
-	n3=13
+	n1=23
+	n2=1
+	n3=1
 	n4=1
 	n5=1
 	o1=0.0
@@ -9,13 +9,13 @@
 	o4=0.0
 	o5=0.0
 	d1=10.0
-	d2=27.0
-	d3=37.0
+	d2=1.0
+	d3=1.0
 	d4=1.0
 	d5=1.0
 	label1="Depth"
 	label2="mx"
-	label3="my"
+	label3="0"
 	label4=""
 	label5=""
 	unit1=""
@@ -26,5 +26,5 @@
 	title=""
 	data_format="native_float"
 	esize=4
-	in="/home/gram/tle_fwi/vel/vel_1@data@"
-	headers="/home/gram/tle_fwi/vel/vel_1@headers@"
+	in="/home/gram/tle_fwi/fwi/wav@data@"
+	headers="/home/gram/tle_fwi/fwi/wav@headers@"
