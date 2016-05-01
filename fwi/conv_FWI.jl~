@@ -92,6 +92,19 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 		cor_o = ifft(conj(fft(s_o)) .* fft(sei[:,j,i]))
 		acor = ifft(conj(fft(sei[:,j,i])) .* fft(sei[:,j,i]))
 
+			# convolution builds in neglible reals
+			# instead of zeros, so elim trailing imaginaries
+		cor_p = real(cor_p)
+		cor_n = real(cor_n)
+		cor_o = real(cor_o)
+		acor = real(acor)
+
+			# normalize amplitudes
+		cor_p = cor_p ./ maximum(cor_p)
+		cor_n = cor_n ./ maximum(cor_n)
+		cor_o = cor_o ./ maximum(cor_o)
+		acor = acor ./ maximum(acor)
+
 			# difference and weight
 		dif_p = acor - cor_p
 		dif_n = acor - cor_n
@@ -102,7 +115,7 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 		
 		# move in the direction of improvement
 		dir = 0
-		dir = find(comp .== min(comp[1],comp[2],comp[3]))
+		dir = find(minimum(comp))
 		
 		if dir == 1
 			vel[k,j,i] = v_p[k]
