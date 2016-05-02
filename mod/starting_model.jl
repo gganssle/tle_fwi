@@ -18,7 +18,7 @@ peakF = 100    # Ricker peak freq
 samp  = .001 # Ricker sample rate
 dz = 10
 dx = 20
-dy = 30
+dy = 20
 
 temp = ricker(peakF, samp)
 rick = zeros(Float32, size(temp)[1])

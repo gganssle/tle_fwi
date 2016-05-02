@@ -12,7 +12,7 @@ using Seismic
 
 # read initial vel model, seismic image, and Ricker wavelet
 vel,vel_h = SeisRead("../vel/vel_1")
-sei, sei_h = SeisRead("../vel/vel_1")
+sei, sei_h = SeisRead("../mod/image")
 rick, rick_h = SeisRead("../mod/wav")
 
 # initialize
@@ -106,17 +106,19 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 		acor = acor ./ maximum(acor)
 
 			# difference and weight
-		dif_p = acor - cor_p
-		dif_n = acor - cor_n
-		dif_o = acor - cor_o
+		dif_p = abs(acor - cor_p)
+		dif_n = abs(acor - cor_n)
+		dif_o = abs(acor - cor_o)
 		
 			# sum the difference vectors
 		comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 		
 		# move in the direction of improvement
 		dir = 0
-		dir = find(minimum(comp))
+		dir = find(minimum(comp))[1]
 		
+		print("\n",dir,"\n")
+
 		if dir == 1
 			vel[k,j,i] = v_p[k]
 		elseif dir == 2

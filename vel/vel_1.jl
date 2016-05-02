@@ -5,12 +5,12 @@
 using Seismic
 
 # def size
-nx = 11
-ny = 13
+nx = 30
+ny = 30
 nz = 100
 dz = 10 # depth increment
-dx = 27
-dy = 37
+dx = 20
+dy = 20
 
 vel = zeros(Float32,nz,nx,ny)
 
@@ -20,8 +20,10 @@ for i = 1:nz, j = 1:nx, k = 1:ny
 		vel[i,j,k] = 2000
 	elseif ((i < 2 * nz / 3) & (i > nz / 3))
 		vel[i,j,k] = 3000
-	else
+	elseif ((i > 2 * nz / 3) & (i < (2 * nz / 3) + 4))
 		vel[i,j,k] = 4000
+	else
+		vel[i,j,k] = 5000
 	end
 end
 

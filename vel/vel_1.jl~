@@ -9,8 +9,8 @@ nx = 30
 ny = 30
 nz = 100
 dz = 10 # depth increment
-dx = 27
-dy = 37
+dx = 20
+dy = 20
 
 vel = zeros(Float32,nz,nx,ny)
 
