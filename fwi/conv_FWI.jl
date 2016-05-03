@@ -20,8 +20,8 @@ nz = size(vel)[1]
 nx = size(vel)[2]
 ny = size(vel)[3]
 dz = vel_h[1].d1
-dx = 27
-dy = 37
+dx = 20
+dy = 20
 itr_max = 5		# max number of vel iterations
 inc = .1		# velocity update percentage
 d1 = d2 = 1		# acoustic assumption
@@ -113,13 +113,13 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 			# sum the difference vectors
 		comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 		
-		print("\n",comp,"\n")
+#==#		print("\n",comp,"\n")
 
 		# move in the direction of improvement
 		dir = 0
-		dir = find(minimum(comp))[1]
+		dir = find(comp .== minimum(comp))[1]
 		
-		print("\n",dir,"\n")
+#==#		print("\n",dir,"\n")
 
 		if dir == 1
 			vel[k,j,i] = v_p[k]
