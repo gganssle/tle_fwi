@@ -20,6 +20,8 @@ for i = 1:nz, j = 1:nx, k = 1:ny
 		vel[i,j,k] = 2000
 	elseif ((i < 2 * nz / 3) & (i > nz / 3))
 		vel[i,j,k] = 3000
+	elseif ((i > 2 * nz / 3) & (i < (2 * nz / 3) + 4))
+		vel[i,j,k] = 3500
 	else
 		vel[i,j,k] = 4000
 	end
@@ -63,7 +65,7 @@ for i = 1 : ny
 	end
 end
 
-SeisWrite("vel_1",vel,h,ex)
+SeisWrite("vel_2",vel,h,ex)
 
 
 

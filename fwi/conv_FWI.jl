@@ -11,7 +11,7 @@
 using Seismic
 
 # read initial vel model, seismic image, and Ricker wavelet
-vel,vel_h = SeisRead("../vel/vel_1")
+vel,vel_h = SeisRead("../vel/vel_2")
 sei, sei_h = SeisRead("../mod/image")
 rick, rick_h = SeisRead("../mod/wav")
 
@@ -109,7 +109,15 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 		dif_p = abs(acor - cor_p)
 		dif_n = abs(acor - cor_n)
 		dif_o = abs(acor - cor_o)
-		
+
+
+
+		print("\n",dif_p,"\n")
+		print("\n",dif_n,"\n")
+		print("\n",dif_o,"\n")
+
+
+
 			# sum the difference vectors
 		comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 		
