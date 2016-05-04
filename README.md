@@ -12,10 +12,13 @@ To run this stuff you'll need Julia v0.4, and the Julia package Seismic. <strong
 	<li>who@where:~$ julia</li>
 	<li>julia > Pkg.add("Seismic")</li>
 	<li>julia > Pkg.update()</li>
+	<li>julia > ^d</li>
 	<li>who@where:~$ git clone git@github.com:gganssle/tle_fwi.git</li>
 	<li>who@where:~$ cd tle_fwi/fwi</li>
 	<li>who@where:~$ julia</li>
 	<li>julia > include("conv_FWI.jl")</li>
+	<li>julia > fwi("../dat/vel_incorrect", "../dat/image", "../dat/wav", "../dat/updated_vel", .1, 5)
+</li>
 	<li>enjoy</li>
 </ul>
 
