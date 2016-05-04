@@ -7,7 +7,7 @@ using Seismic
 # def size
 nx = 5
 ny = 5
-nz = 20
+nz = 200
 dz = 10 # depth increment
 dx = 20
 dy = 20

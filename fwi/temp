@@ -26,5 +26,5 @@
 	title=""
 	data_format="native_float"
 	esize=4
-	in="/home/gram/tle_fwi/mod/../dat/image@data@"
-	headers="/home/gram/tle_fwi/mod/../dat/image@headers@"
+	in="/home/gram/tle_fwi/fwi/temp@data@"
+	headers="/home/gram/tle_fwi/fwi/temp@headers@"

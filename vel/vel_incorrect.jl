@@ -7,7 +7,7 @@ using Seismic
 # def size
 nx = 5
 ny = 5
-nz = 20
+nz = 200
 dz = 10 # depth increment
 dx = 20
 dy = 20
@@ -20,7 +20,7 @@ for i = 1:nz, j = 1:nx, k = 1:ny
 		vel[i,j,k] = 2000
 	elseif ((i < 2 * nz / 3) & (i > nz / 3))
 		vel[i,j,k] = 3000
-	elseif ((i > 2 * nz / 3) & (i < (2 * nz / 3) + 4))
+	elseif ((i > (2 * nz / 3) - 25) & (i < (2 * nz / 3) + 25))
 		vel[i,j,k] = 3500
 	else
 		vel[i,j,k] = 4000

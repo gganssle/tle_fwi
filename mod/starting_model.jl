@@ -8,14 +8,14 @@
 using Seismic
 
 # import vel model
-vel,vel_h = SeisRead("../dat/vel_1")
+vel,vel_h = SeisRead("../dat/vel_correct")
 nz = size(vel)[1]
 nx = size(vel)[2]
 ny = size(vel)[3]
 
 # initialize
-peakF = 100    # Ricker peak freq
-samp  = .001 # Ricker sample rate
+peakF = 100		# Ricker peak freq
+samp  = .001	# Ricker sample rate
 dz = 10
 dx = 20
 dy = 20
