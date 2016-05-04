@@ -8,7 +8,7 @@
 using Seismic
 
 # import vel model
-vel,vel_h = SeisRead("../vel/vel_1")
+vel,vel_h = SeisRead("../dat/vel_1")
 nz = size(vel)[1]
 nx = size(vel)[2]
 ny = size(vel)[3]
@@ -38,7 +38,7 @@ h_w[1] = Seismic.InitSeisHeader();
 h_w[1].tracenum = 1;
 h_w[1].n1 = size(rick)[1];
 h_w[1].d1 = samp;
-SeisWrite("wav", rick[:], h_w, ex);
+SeisWrite("../dat/wav", rick[:], h_w, ex);
 
 # calculate (normal incidence) reflection coeficients
 r = zeros(Float32,nz,nx,ny)
@@ -72,7 +72,7 @@ for i = 1 : ny
 	end
 end
 
-SeisWrite("refl",r,vel_h,ex)
+SeisWrite("../dat/refl",r,vel_h,ex)
 
 # convolve RC with Ricker wavelet to generate 0 offset section
 nz_new = size(rick)[1] + nz - 1
@@ -106,7 +106,7 @@ ex = Seismic.Extent(convert(Int32,nz), convert(Int32,nx), convert(Int32,ny),
 	convert(Float32,dy), 1, 1, "Depth", "mx", "my", "", "", "", "", "", 
 	"", "", "")
 
-SeisWrite("image",vel,vel_h,ex)
+SeisWrite("../dat/image",vel,vel_h,ex)
 
 
 

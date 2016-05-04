@@ -32,8 +32,8 @@ print(size(vel), "\n")
 print(vel,"\n")
 =#
 
-# write out text file for QC
-out = open("vel_1.txt","w")
+#= write out text file for QC
+out = open("../dat/vel_1.txt","w")
 for k = 1:ny
 	for i = 1:nz
 		for j = 1:nx
@@ -45,6 +45,7 @@ for k = 1:ny
 	write(out, "\r\n")
 end
 close(out)
+=#
 
 # write out vel model for Seismic.jl
 h = Array(Header,nx*ny)
@@ -65,7 +66,7 @@ for i = 1 : ny
 	end
 end
 
-SeisWrite("vel_2",vel,h,ex)
+SeisWrite("../dat/vel_2",vel,h,ex)
 
 
 

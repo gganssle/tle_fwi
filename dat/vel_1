@@ -26,5 +26,5 @@
 	title=""
 	data_format="native_float"
 	esize=4
-	in="/home/gram/tle_fwi/fwi/updated_vel@data@"
-	headers="/home/gram/tle_fwi/fwi/updated_vel@headers@"
+	in="/home/gram/tle_fwi/vel/../dat/vel_1@data@"
+	headers="/home/gram/tle_fwi/vel/../dat/vel_1@headers@"

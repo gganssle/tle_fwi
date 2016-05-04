@@ -11,9 +11,9 @@
 using Seismic
 
 # read initial vel model, seismic image, and Ricker wavelet
-vel,vel_h = SeisRead("../vel/vel_2")
-sei, sei_h = SeisRead("../mod/image")
-rick, rick_h = SeisRead("../mod/wav")
+vel,vel_h = SeisRead("../dat/vel_2")
+sei, sei_h = SeisRead("../dat/image")
+rick, rick_h = SeisRead("../dat/wav")
 
 # initialize
 nz = size(vel)[1]
@@ -113,13 +113,13 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 			# sum the difference vectors
 		comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 		
-#==#		print("\n",comp,"\n")
+		print("\n",comp,"\n")
 
 		# move in the direction of improvement
 		dir = 0
 		dir = find(comp .== minimum(comp))[1]
 		
-#==#		print("\n",dir,"\n")
+		print("\n",dir,"\n")
 
 		if dir == 1
 			vel[k,j,i] = v_p[k]
@@ -141,7 +141,7 @@ ex = Seismic.Extent(convert(Int32,nz), convert(Int32,nx), convert(Int32,ny),
 	convert(Float32,dy), 1, 1, "Depth", "mx", "my", "", "", "", "", "", 
 	"", "", "")
 
-SeisWrite("updated_vel",vel,vel_h,ex)
+SeisWrite("../dat/updated_vel",vel,vel_h,ex)
 
 
 

@@ -113,13 +113,13 @@ for i = 1 : ny, j = 1 : nx, k = 1 : nz
 			# sum the difference vectors
 		comp = [sum(dif_p),sum(dif_n),sum(dif_o)]
 		
-#==#		print("\n",comp,"\n")
+		print("\n",comp,"\n")
 
 		# move in the direction of improvement
 		dir = 0
-		dir = find(minimum(comp))[1]
+		dir = find(comp .== minimum(comp))[1]
 		
-#==#		print("\n",dir,"\n")
+		print("\n",dir,"\n")
 
 		if dir == 1
 			vel[k,j,i] = v_p[k]
