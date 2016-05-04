@@ -8,12 +8,14 @@ This algorithm will be published in SEG's The Leading Edge geophysical tutorial 
 
 To run this stuff you'll need Julia v0.4, and the Julia package Seismic. <strong>Here's how you install and run the project:</strong>
 <ul>
-	<li>sudo apt-get install julia</li>
+	<li>who@where:~$ sudo apt-get install julia</li>
+	<li>who@where:~$ julia</li>
 	<li>julia > Pkg.add("Seismic")</li>
-	<li>git clone git@github.com:gganssle/tle_fwi.git</li>
-	<li>cd tle_fwi/fwi</li>
-	<li>julia</li>
-	<li>include("conv_FWI.jl")</li>
+	<li>julia > Pkg.update()</li>
+	<li>who@where:~$ git clone git@github.com:gganssle/tle_fwi.git</li>
+	<li>who@where:~$ cd tle_fwi/fwi</li>
+	<li>who@where:~$ julia</li>
+	<li>julia > include("conv_FWI.jl")</li>
 	<li>enjoy</li>
 </ul>
 
