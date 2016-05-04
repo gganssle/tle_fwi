@@ -4,7 +4,7 @@
 #
 # by GRAM | 23 Apr 2016
 
-print("\n3D Poststack full waveform inversion via convolution\n\n
+print("\n3D Poststack full waveform inversion algorithm\n\n
 In this program FWI updates a velocity model one sample at a time,
 one trace at a time. The velocity sample is perturbed positively,
 negatively, and not at all. Then the algorithm models new seismic
