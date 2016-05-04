@@ -64,7 +64,7 @@ for i = 1 : ny
 	end
 end
 
-SeisWrite("../dat/vel_1",vel,h,ex)
+SeisWrite("../dat/vel_correct",vel,h,ex)
 
 
 
