@@ -1,4 +1,5 @@
-# The Leading Edge Tutorial: Full Waveform Inversion
+# The Leading Edge Tutorial: 
+#	Full Waveform Inversion
 
 <strong>What is full waveform inversion?</strong> How does it work? Is it of any benefit to geophysicists?
 
