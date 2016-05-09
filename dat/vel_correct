@@ -1,6 +1,6 @@
 	n1=200
-	n2=50
-	n3=50
+	n2=100
+	n3=100
 	n4=1
 	n5=1
 	o1=0.0
@@ -26,5 +26,5 @@
 	title=""
 	data_format="native_float"
 	esize=4
-	in="/home/gram/tle_fwi/vel/../dat/vel_correct@data@"
-	headers="/home/gram/tle_fwi/vel/../dat/vel_correct@headers@"
+	in="/home/gram/tle_fwi/mod/../dat/vel_correct@data@"
+	headers="/home/gram/tle_fwi/mod/../dat/vel_correct@headers@"

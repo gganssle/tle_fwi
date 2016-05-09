@@ -45,7 +45,7 @@ end
 
 for i = 1:nz, j = 1:nx, k = 1:ny # target
 	if ((i < 130) & (i > floor(140 - 1.6 * j + 0.016 * j^2)) & (i > floor(140 - 1.6 * k + 0.016 * k^2)))
-		vel[i,j,k] = 2000
+		vel[i,j,k] = 2500
 	end
 end
 

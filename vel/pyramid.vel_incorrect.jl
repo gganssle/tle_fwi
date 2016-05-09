@@ -43,16 +43,15 @@ for i = 1:nz, j = 1:nx, k = 1:ny # basement
 	end
 end
 
-# here we wipe out our target, hypothetically
-# bc the geophysicist picking these velocities
-# didn't want to pick an inversion.
-#=
+# Here we "pick" erroneously high vels below the target
+# zone, hypothetically because the geophysicist didn't
+# want to pick a velocity inversion.
+
 for i = 1:nz, j = 1:nx, k = 1:ny # target
-	if ((i < 130) & (i > floor(140 - 1.6 * j + 0.016 * j^2)) & (i > floor(140 - 1.6 * k + 0.016 * k^2)))
-		vel[i,j,k] = 2000
+	if ((i < 170) & (i > 130) & (i > floor(140 - 1.6 * j + 0.016 * j^2)) & (i > floor(140 - 1.6 * k + 0.016 * k^2)))
+		vel[i,j,k] = 4050
 	end
 end
-=#
 
 #= display
 print(size(vel), "\n")
