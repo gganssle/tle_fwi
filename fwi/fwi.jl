@@ -23,13 +23,13 @@ This algorithm accepts six inputs in the following order:\n
 If verbose is 0 operation is silent. If verbose is 1 updates will
 print to stdout. If verbose is 2 debugging info will print to stdout.
 Here is an example to get you started on the syntax:\n\n
-fwi(\"../dat/vel_incorrect\", \"../dat/image\", \"../dat/wav\", \"../dat/updated_vel\", .1, 5, 0)\n\n
+fwi(\"../dat/vel_incorrect\", \"../dat/image_correct\", \"../dat/wav\", \"../dat/updated_vel\", .1, 5, 0)\n\n
 Please note this algorithm is written for clarity not speed, so
 use forgivingly small velocity models.\n\n")
 
 using Seismic
 include("compare_wavelet.jl")	# wavefield comparison algorithm
-include("model_conv.jl")		# seismic modeling algorithm
+include("model_conv.jl")	# seismic modeling algorithm
 
 function fwi(vel="",sei="",wav="",out="",inc=.1,itr_max=5,verbose=0)
 
@@ -46,9 +46,7 @@ function fwi(vel="",sei="",wav="",out="",inc=.1,itr_max=5,verbose=0)
 	dx = 20
 	dy = 20
 	thrs = 0.01		# change in vel threshold
-	wvln = size(wav)[1]	# wavelength of the wavelet	
-#	itr_max = 5		# max number of vel iterations
-#	inc = .1		# velocity update percentage
+	wvln = size(wav)[1]	# wavelength of the wavelet
 
 	#### start FWI ##########################
 	for i = 1 : ny, j = 1 : nx
@@ -85,15 +83,6 @@ function fwi(vel="",sei="",wav="",out="",inc=.1,itr_max=5,verbose=0)
 				v_n[layer[k] + 1 : layer[k + 1]] = v_n[layer[k] + 1] * (1 - inc)
 
 				v_o = vel[:,j,i]
-
-#=
-				if ((k == 2) & (i == 1) & (j == 1) & (itr == 1))
-					print("\n",v_p[layer[k] + 1] * (1 + inc),"\n")
-					plot(v_n)
-					plot(v_p)
-					plot(v_o)
-				end
-=#
 
 				# model perturbed seismic data
 				s_p, s_n, s_o = model(v_p, v_n, v_o, nx, ny, nz, wav)
