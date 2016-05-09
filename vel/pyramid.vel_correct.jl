@@ -15,15 +15,37 @@ dy = 20
 vel = zeros(Float32,nz,nx,ny)
 
 # build model
-for i = 1:nz, j = 1:nx, k = 1:ny
-	if i < nz / 3
-		vel[i,j,k] = 2000
-	elseif ((i < 2 * nz / 3) & (i > nz / 3))
+for i = 1:nz, j = 1:nx, k = 1:ny # overburden 1 
+	vel[i,j,k] = 2000
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny # overburden 2
+	if i > 30
+		vel[i,j,k] = 2500
+	end
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny # domal pyramid 1 
+	if ((i > floor(100 - 1.6 * j + 0.016 * j^2)) & (i > floor(100 - 1.6 * k + 0.016 * k^2)))
 		vel[i,j,k] = 3000
-	elseif ((i > (2 * nz / 3) - 25) & (i < (2 * nz / 3) + 25))
-		vel[i,j,k] = 3500
-	else
+	end
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny # domal pyramid 2
+	if ((i > floor(140 - 1.6 * j + 0.016 * j^2)) & (i > floor(140 - 1.6 * k + 0.016 * k^2)))
 		vel[i,j,k] = 4000
+	end
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny # basement
+	if i >= 170
+		vel[i,j,k] = 5000
+	end
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny # target
+	if ((i < 130) & (i > floor(140 - 1.6 * j + 0.016 * j^2)) & (i > floor(140 - 1.6 * k + 0.016 * k^2)))
+		vel[i,j,k] = 2000
 	end
 end
 
@@ -66,7 +88,7 @@ for i = 1 : ny
 	end
 end
 
-SeisWrite("../dat/vel_incorrect",vel,h,ex)
+SeisWrite("../dat/vel_correct",vel,h,ex)
 
 
 

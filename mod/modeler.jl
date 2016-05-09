@@ -8,7 +8,7 @@
 using Seismic
 
 # import vel model
-vel,vel_h = SeisRead("../dat/vel_correct")
+vel,vel_h = SeisRead("../dat/vel_incorrect")
 nz = size(vel)[1]
 nx = size(vel)[2]
 ny = size(vel)[3]
@@ -106,7 +106,7 @@ ex = Seismic.Extent(convert(Int32,nz), convert(Int32,nx), convert(Int32,ny),
 	convert(Float32,dy), 1, 1, "Depth", "mx", "my", "", "", "", "", "", 
 	"", "", "")
 
-SeisWrite("../dat/image",vel,vel_h,ex)
+SeisWrite("../dat/image_incorrect",vel,vel_h,ex)
 
 
 
