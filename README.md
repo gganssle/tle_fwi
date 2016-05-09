@@ -11,14 +11,14 @@ To run this stuff you'll need Julia v0.4, and the Julia package Seismic. <strong
 	<li>who@where:~$ sudo apt-get install julia</li>
 	<li>who@where:~$ julia</li>
 	<li>julia > Pkg.add("Seismic")</li>
+	<li>julia > Pkg.add("PyPlot")</li>
+	<li>julia > Pkg.add("IJulia")</li>
 	<li>julia > Pkg.update()</li>
 	<li>julia > exit()</li>
 	<li>who@where:~$ git clone git@github.com:gganssle/tle_fwi.git</li>
-	<li>who@where:~$ cd tle_fwi/fwi</li>
-	<li>who@where:~$ julia</li>
-	<li>julia > include("fwi.jl")</li>
-	<li>julia > fwi("../dat/vel_incorrect", "../dat/image", "../dat/wav", "../dat/updated_vel", .1, 5)
-</li>
+	<li>who@where:~$ cd tle_fwi/test</li>
+	<li>who@where:~$ jupyter notebook</li>
+	<li>click "start_here_script"</li>
 	<li>enjoy</li>
 </ul>
 

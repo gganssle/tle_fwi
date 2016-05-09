@@ -1,12 +1,12 @@
-# This program creates a simple 3D vel model for FD seismic modeling
+# This program creates a simple 3D vel model for seismic modeling
 #
 # by GRAM | 8 Apr 2016
 
 using Seismic
 
 # def size
-nx = 5
-ny = 5
+nx = 100
+ny = 100
 nz = 200
 dz = 10 # depth increment
 dx = 20
@@ -16,15 +16,39 @@ vel = zeros(Float32,nz,nx,ny)
 
 # build model
 for i = 1:nz, j = 1:nx, k = 1:ny
-	if i < nz / 3
-		vel[i,j,k] = 2000
-	elseif ((i < 2 * nz / 3) & (i > nz / 3))
+	vel[i,j,k] = 2000
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny
+	if i > 30
+		vel[i,j,k] = 2500
+	end
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny
+	if ((i > floor(100 - 1.6 * j + 0.016 * j^2)) & (i > floor(100 - 1.6 * k + 0.016 * k^2)))
 		vel[i,j,k] = 3000
-	else
+	end
+end
+
+for i = 1:nz, j = 1:nx, k = 1:ny
+	if ((i > floor(140 - 1.6 * j + 0.016 * j^2)) & (i > floor(140 - 1.6 * k + 0.016 * k^2)))
 		vel[i,j,k] = 4000
 	end
 end
 
+for i = 1:nz, j = 1:nx, k = 1:ny
+	if i >= 170
+		vel[i,j,k] = 5000
+	end
+end
+#=
+for i = 1:nz, j = 1:nx, k = 1:ny
+	if ()
+		vel[i,j,k] = 2000
+	end
+end
+=#
 #= display
 print(size(vel), "\n")
 print(vel,"\n")

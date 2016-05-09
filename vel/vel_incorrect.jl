@@ -1,12 +1,12 @@
-# This program creates a simple 3D vel model for FD seismic modeling
+# This program creates a simple 3D vel model for seismic modeling
 #
 # by GRAM | 8 Apr 2016
 
 using Seismic
 
 # def size
-nx = 5
-ny = 5
+nx = 100
+ny = 100
 nz = 200
 dz = 10 # depth increment
 dx = 20
