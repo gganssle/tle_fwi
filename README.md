@@ -16,10 +16,12 @@ To run this stuff you'll need Julia v0.4, and the Julia package Seismic. <strong
 	<li>julia > Pkg.update()</li>
 	<li>julia > exit()</li>
 	<li>who@where:~$ git clone git@github.com:gganssle/tle_fwi.git</li>
-	<li>who@where:~$ cd tle_fwi/test</li>
+	<li>who@where:~$ cd tle_fwi/START_HERE</li>
 	<li>who@where:~$ jupyter notebook</li>
-	<li>click "start_here_script"</li>
+	<li>click "start_here_script.ipynb"</li>
 	<li>enjoy</li>
 </ul>
+
+Since GitHub now supports Jupyter notebooks, you can simply view the work non-interactively <a href="https://github.com/gganssle/tle_fwi/blob/master/START_HERE/start_here_script.ipynb">here</a>.
 
 Please contact GRAM with any questions at <a href="https://gra.m-gan.sl">gra.m-gan.sl</a>, or on Twitter <a href="https://twitter.com/grahamganssle">@GrahamGanssle</a>.
