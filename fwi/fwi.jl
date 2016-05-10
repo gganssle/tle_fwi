@@ -116,7 +116,7 @@ function fwi(vel="",sei="",wav="",out="",inc=.1,itr_max=5,verbose=0)
 	end #### end of FWI ###########################
 
 	# write out the FWI updated velocity model
-	SeisWrite("../dat/updated_vel",vel,vel_h,ex)
+	SeisWrite(out,vel,vel_h,ex)
 
 end # end of function
 
